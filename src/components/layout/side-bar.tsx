@@ -1,13 +1,16 @@
+import { Fragment } from 'react'
+
 import { cn } from '@/lib/utils'
 import { Logo } from './logo'
+import { SidebarMenu } from './sidebar-menu'
 
-type SidebarItem = {
+type NavItem = {
   label: string
   path: string
   active?: boolean
 }
 
-const NAV_GROUPS: SidebarItem[][] = [
+const NAV_GROUPS: NavItem[][] = [
   [
     { label: 'Photos', path: 'M6 17h12l-3.75-5-3 4L9 13l-3 4Zm-3 4V3h18v18H3Zm2-2h14V5H5v14Z', active: true },
     {
@@ -25,45 +28,83 @@ const NAV_GROUPS: SidebarItem[][] = [
   [{ label: 'Bookmarks', path: 'M5 21V3h14v18l-7-3zm2-3.05 5-2.15 5 2.15V5H7z' }],
 ]
 
+const BELL_PATH =
+  'M18 15V9c0-3.3-2.7-6-6-6S6 5.7 6 9v6l-2 2v2h16v-2l-2-2ZM6.8 17 8 15.8V9c0-2.2 1.8-4 4-4s4 1.8 4 4v6.8l1.2 1.2H6.8Zm2.7 3h5c0 1.4-1.1 2.5-2.5 2.5S9.5 21.4 9.5 20Z'
+
+const PERSON_PATH =
+  'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z'
+
+function Tooltip({ label }: { label: string }) {
+  return (
+    <span className="pointer-events-none absolute top-1/2 left-full z-50 ml-3 -translate-y-1/2 rounded-md bg-neutral-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover/tt:opacity-100">
+      {label}
+    </span>
+  )
+}
+
+function SidebarLink({ label, path, active }: NavItem) {
+  return (
+    <div className="group/tt relative">
+      <a
+        href="#"
+        aria-label={label}
+        className={cn(
+          'hover:bg-muted flex size-10 items-center justify-center rounded-lg transition-colors',
+          active ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground',
+        )}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="shrink-0">
+          <path d={path} />
+        </svg>
+      </a>
+      <Tooltip label={label} />
+    </div>
+  )
+}
+
 export function SideBar() {
   return (
-    <aside className="bg-background laptop:flex fixed inset-y-0 left-0 z-40 hidden w-16 flex-col items-center gap-2 border-r py-3">
+    <aside className="bg-background laptop:flex fixed inset-y-0 left-0 z-40 hidden w-16 flex-col items-center py-3">
       <a
         href="#"
         aria-label="Unsplash Home"
         title="Home — Unsplash"
-        className="hover:bg-muted flex size-10 items-center justify-center rounded-lg"
+        className="hover:bg-muted mb-1 flex size-10 items-center justify-center rounded-lg"
       >
         <Logo className="size-7" />
       </a>
 
       {NAV_GROUPS.map((group, index) => (
-        <div key={index} className="flex flex-col items-center gap-1 border-t pt-2 first:border-t-0 first:pt-0">
-          {group.map((item) => (
-            <a
-              key={item.label}
-              href="#"
-              aria-label={item.label}
-              title={item.label}
-              className={cn(
-                'hover:bg-muted flex size-10 items-center justify-center rounded-lg transition-colors',
-                item.active ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
-              )}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-                className="shrink-0"
-              >
-                <path d={item.path} />
-              </svg>
-            </a>
-          ))}
-        </div>
+        <Fragment key={index}>
+          {index > 0 && <div className="bg-border my-6 h-px w-6" />}
+          <div className="flex flex-col items-center gap-1">
+            {group.map((item) => (
+              <SidebarLink key={item.label} {...item} />
+            ))}
+          </div>
+        </Fragment>
       ))}
+
+      <div className="mt-auto flex flex-col items-center gap-1">
+        <SidebarLink label="Notifications" path={BELL_PATH} />
+
+        <div className="group/tt relative">
+          <a
+            href="#"
+            aria-label="Profile"
+            className="hover:bg-muted flex size-10 items-center justify-center rounded-lg"
+          >
+            <span className="bg-muted text-muted-foreground flex size-8 items-center justify-center overflow-hidden rounded-full">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d={PERSON_PATH} />
+              </svg>
+            </span>
+          </a>
+          <Tooltip label="Profile" />
+        </div>
+
+        <SidebarMenu />
+      </div>
     </aside>
   )
 }
