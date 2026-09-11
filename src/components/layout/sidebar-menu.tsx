@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import { Menu } from 'lucide-react'
 
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { LEGAL_LINKS, MENU_SECTIONS } from '@/data/site'
 
@@ -22,19 +22,19 @@ const SOCIAL_ICONS = [
 ]
 
 export function SidebarMenu() {
-  const [open, setOpen] = useState(false)
-
   return (
-    <div className="relative">
+    <Popover>
       <Tooltip>
         <TooltipTrigger
           render={
-            <button
-              type="button"
-              aria-label="Menu"
-              aria-expanded={open}
-              onClick={() => setOpen((value) => !value)}
-              className="text-muted-foreground hover:bg-muted hover:text-foreground flex size-10 items-center justify-center rounded-lg transition-colors"
+            <PopoverTrigger
+              render={
+                <button
+                  type="button"
+                  aria-label="Menu"
+                  className="text-muted-foreground hover:bg-muted hover:text-foreground flex size-10 items-center justify-center rounded-lg transition-colors"
+                />
+              }
             />
           }
         >
@@ -43,54 +43,45 @@ export function SidebarMenu() {
         <TooltipContent side="right">Menu</TooltipContent>
       </Tooltip>
 
-      {open && (
-        <>
-          <button
-            aria-label="Close menu"
-            className="fixed inset-0 z-40 cursor-default"
-            onClick={() => setOpen(false)}
-          />
-          <div className="bg-popover text-popover-foreground fixed bottom-3 left-[72px] z-50 w-[760px] max-w-[calc(100vw-88px)] overflow-hidden rounded-xl border shadow-2xl">
-            <div className="grid grid-cols-3 gap-8 p-8">
-              {MENU_SECTIONS.map((section) => (
-                <div key={section.title}>
-                  <p className="mb-4 font-semibold">{section.title}</p>
-                  <ul className="flex flex-col gap-3">
-                    {section.links.map((link) => (
-                      <li key={link}>
-                        <a href="#" className="text-muted-foreground hover:text-foreground text-sm">
-                          {link}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+      <PopoverContent side="right" align="end" sideOffset={12} className="w-[760px] max-w-[calc(100vw-88px)] gap-0 p-0">
+        <div className="grid grid-cols-3 gap-8 p-8">
+          {MENU_SECTIONS.map((section) => (
+            <div key={section.title}>
+              <p className="mb-4 font-semibold">{section.title}</p>
+              <ul className="flex flex-col gap-3">
+                {section.links.map((link) => (
+                  <li key={link}>
+                    <a href="#" className="text-muted-foreground hover:text-foreground text-sm">
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
 
-                  {section.title === 'Company' && (
-                    <div className="text-muted-foreground mt-5 flex items-center gap-4">
-                      {SOCIAL_ICONS.map((icon) => (
-                        <a key={icon.label} href="#" aria-label={icon.label} className="hover:text-foreground">
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d={icon.path} />
-                          </svg>
-                        </a>
-                      ))}
-                    </div>
-                  )}
+              {section.title === 'Company' && (
+                <div className="text-muted-foreground mt-5 flex items-center gap-4">
+                  {SOCIAL_ICONS.map((icon) => (
+                    <a key={icon.label} href="#" aria-label={icon.label} className="hover:text-foreground">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d={icon.path} />
+                      </svg>
+                    </a>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
+          ))}
+        </div>
 
-            <div className="text-muted-foreground flex items-center gap-6 border-t px-8 py-4 text-sm">
-              {LEGAL_LINKS.map((link) => (
-                <a key={link} href="#" className="hover:text-foreground">
-                  {link}
-                </a>
-              ))}
-              <span className="ml-auto">English</span>
-            </div>
-          </div>
-        </>
-      )}
-    </div>
+        <div className="text-muted-foreground flex items-center gap-6 border-t px-8 py-4 text-sm">
+          {LEGAL_LINKS.map((link) => (
+            <a key={link} href="#" className="hover:text-foreground">
+              {link}
+            </a>
+          ))}
+          <span className="ml-auto">English</span>
+        </div>
+      </PopoverContent>
+    </Popover>
   )
 }
