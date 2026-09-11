@@ -43,10 +43,10 @@ export function SidebarMenu() {
         <TooltipContent side="right">Menu</TooltipContent>
       </Tooltip>
 
-      <PopoverContent side="right" align="end" sideOffset={12} className="w-190 max-w-[calc(100vw-88px)] gap-0 p-0">
-        <div className="grid grid-cols-3 gap-8 p-8">
+      <PopoverContent side="right" align="end" sideOffset={12} className="w-max max-w-[calc(100vw-88px)] gap-0 p-0">
+        <div className="flex gap-8 px-8 pt-6 pb-8">
           {MENU_SECTIONS.map((section) => (
-            <div key={section.title}>
+            <div key={section.title} className="min-w-56">
               <p className="mb-4 font-semibold">{section.title}</p>
               <ul className="flex flex-col gap-3">
                 {section.links.map((link) => (
