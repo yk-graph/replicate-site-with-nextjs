@@ -18,7 +18,7 @@ export function SearchForm({
         name="query"
         placeholder={placeholder}
         aria-label={placeholder}
-        className="bg-muted placeholder:text-muted-foreground focus-visible:ring-ring hover:bg-muted/70 h-11 w-full rounded-full pr-4 pl-11 text-sm transition-colors outline-none focus-visible:bg-transparent focus-visible:ring-2"
+        className="bg-muted placeholder:text-muted-foreground focus-visible:ring-ring hover:bg-muted/70 h-10 w-full rounded-full pr-4 pl-11 text-sm transition-colors outline-none focus-visible:bg-transparent focus-visible:ring-2"
       />
     </form>
   )
