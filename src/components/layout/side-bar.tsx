@@ -48,7 +48,7 @@ function SidebarLink({ label, Icon, active }: NavItem) {
 
 export function SideBar() {
   return (
-    <aside className="bg-background laptop:flex fixed inset-y-0 left-0 z-40 hidden w-16 flex-col items-center py-3">
+    <aside className="bg-background laptop:flex fixed inset-y-0 left-0 z-40 hidden w-16 flex-col items-center border-r py-3">
       <a
         href="#"
         aria-label="Unsplash Home"
