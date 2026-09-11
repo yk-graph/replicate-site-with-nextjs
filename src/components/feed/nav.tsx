@@ -9,7 +9,7 @@ export function Nav() {
 
   return (
     <nav className="bg-background sticky top-0 z-20 border-b">
-      <ul className="laptop:px-6 flex [scrollbar-width:none] items-center gap-6 overflow-x-auto px-4">
+      <ul className="laptop:px-6 flex scrollbar-none items-center gap-6 overflow-x-auto px-4">
         {PHOTO_TABS.map((tab) => (
           <li key={tab}>
             <button
