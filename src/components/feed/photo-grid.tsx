@@ -41,7 +41,7 @@ export function PhotoGrid() {
       setHasMore(data.length >= PER_PAGE)
     } catch {
       if (requestId === requestIdRef.current) {
-        setError('画像の取得に失敗しました。時間をおいて再度お試しください。')
+        setError('Failed to load photos. Please try again later.')
       }
     } finally {
       if (requestId === requestIdRef.current) {

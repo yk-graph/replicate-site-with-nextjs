@@ -44,9 +44,9 @@ export function Subscribe() {
         </Button>
       </form>
 
-      {status === 'success' && <p className="mt-3 text-sm text-green-600">登録ありがとうございます！</p>}
+      {status === 'success' && <p className="mt-3 text-sm text-green-600">Thanks for subscribing!</p>}
       {status === 'error' && (
-        <p className="text-destructive mt-3 text-sm">送信に失敗しました。時間をおいてお試しください。</p>
+        <p className="text-destructive mt-3 text-sm">Something went wrong. Please try again later.</p>
       )}
     </section>
   )
