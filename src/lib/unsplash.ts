@@ -1,6 +1,8 @@
 import type { UnsplashPhoto, UnsplashSearchResponse } from '@/types/photo'
+import { UnsplashError } from './errors'
 
 const BASE_URL = 'https://api.unsplash.com'
+const PER_PAGE = 30
 
 export const PHOTO_TABS = [
   'Featured',
@@ -18,6 +20,10 @@ export const PHOTO_TABS = [
 ] as const
 
 export type PhotoTab = (typeof PHOTO_TABS)[number]
+
+export function isPhotoTab(value: string): value is PhotoTab {
+  return (PHOTO_TABS as readonly string[]).includes(value)
+}
 
 function getAccessKey(): string {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY
@@ -38,38 +44,54 @@ async function unsplashFetch(path: string): Promise<Response> {
   })
 
   if (!res.ok) {
-    throw new Error(`Unsplash API request failed with status ${res.status}: ${res.statusText}`)
+    const body = await res.json().catch(() => null)
+    const errors = Array.isArray(body?.errors) ? (body.errors as string[]) : []
+    throw new UnsplashError(res.status, errors)
   }
 
   return res
 }
 
-async function searchPhotos(query: string, page: number, perPage: number): Promise<UnsplashSearchResponse> {
+export async function searchPhotos({
+  query,
+  page,
+  perPage = PER_PAGE,
+}: {
+  query: string
+  page: number
+  perPage?: number
+}): Promise<UnsplashPhoto[]> {
   const params = new URLSearchParams({
     query,
-    page: String(page),
-    per_page: String(perPage),
+    page: page.toString(),
+    per_page: perPage.toString(),
   })
 
   const res = await unsplashFetch(`/search/photos?${params.toString()}`)
-  return res.json()
-}
+  const data: UnsplashSearchResponse = await res.json()
 
-export async function fetchFeedPhotos(page = 1, perPage = 30): Promise<UnsplashPhoto[]> {
-  const params = new URLSearchParams({
-    page: String(page),
-    per_page: String(perPage),
-  })
-
-  const res = await unsplashFetch(`/photos?${params.toString()}`)
-  return res.json()
-}
-
-export async function fetchPhotosByTab(tab: PhotoTab, page = 1, perPage = 30): Promise<UnsplashPhoto[]> {
-  const data = await searchPhotos(tab, page, perPage)
   return data.results
 }
 
-export async function searchPhotosByKeyword(keyword: string, page = 1, perPage = 30): Promise<UnsplashSearchResponse> {
-  return searchPhotos(keyword, page, perPage)
+export async function fetchPhotosByTab({
+  tab,
+  page,
+  perPage = PER_PAGE,
+}: {
+  tab: PhotoTab
+  page: number
+  perPage?: number
+}): Promise<UnsplashPhoto[]> {
+  if (tab === 'Featured') {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      per_page: perPage.toString(),
+    })
+
+    const res = await unsplashFetch(`/photos?${params.toString()}`)
+
+    return (await res.json()) as UnsplashPhoto[]
+  }
+
+  return searchPhotos({ query: tab, page, perPage })
 }
