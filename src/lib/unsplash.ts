@@ -1,29 +1,12 @@
 import type { UnsplashPhoto, UnsplashSearchResponse } from '@/types/photo'
+import type { PhotoTab } from './photo-tabs'
 import { UnsplashError } from './errors'
+
+export { PHOTO_TABS, isPhotoTab } from './photo-tabs'
+export type { PhotoTab }
 
 const BASE_URL = 'https://api.unsplash.com'
 const PER_PAGE = 30
-
-export const PHOTO_TABS = [
-  'Featured',
-  'Fall',
-  'Wallpapers',
-  '3D Renders',
-  'Nature',
-  'Textures',
-  'Film',
-  'Architecture',
-  'Street Photography',
-  'Experimental',
-  'Travel',
-  'People',
-] as const
-
-export type PhotoTab = (typeof PHOTO_TABS)[number]
-
-export function isPhotoTab(value: string): value is PhotoTab {
-  return (PHOTO_TABS as readonly string[]).includes(value)
-}
 
 function getAccessKey(): string {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY
