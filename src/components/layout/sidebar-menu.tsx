@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { Menu } from 'lucide-react'
 
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { LEGAL_LINKS, MENU_SECTIONS } from '@/data/site'
-
-const HAMBURGER_PATH = 'M3 16h18v2H3v-2ZM3 6v2h18V6H3Zm0 7h18v-2H3v2Z'
 
 const SOCIAL_ICONS = [
   {
@@ -25,24 +25,23 @@ export function SidebarMenu() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="group/tt relative">
-      <button
-        type="button"
-        aria-label="Menu"
-        aria-expanded={open}
-        onClick={() => setOpen((value) => !value)}
-        className="text-muted-foreground hover:bg-muted hover:text-foreground flex size-10 items-center justify-center rounded-lg transition-colors"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="shrink-0">
-          <path d={HAMBURGER_PATH} />
-        </svg>
-      </button>
-
-      {!open && (
-        <span className="pointer-events-none absolute top-1/2 left-full z-50 ml-3 -translate-y-1/2 rounded-md bg-neutral-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover/tt:opacity-100">
-          Menu
-        </span>
-      )}
+    <div className="relative">
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <button
+              type="button"
+              aria-label="Menu"
+              aria-expanded={open}
+              onClick={() => setOpen((value) => !value)}
+              className="text-muted-foreground hover:bg-muted hover:text-foreground flex size-10 items-center justify-center rounded-lg transition-colors"
+            />
+          }
+        >
+          <Menu className="size-6" />
+        </TooltipTrigger>
+        <TooltipContent side="right">Menu</TooltipContent>
+      </Tooltip>
 
       {open && (
         <>
