@@ -1,10 +1,3 @@
-export const HERO_CONTENT = {
-  title: 'Unsplash',
-  subtitle: "The internet's source for visuals. Powered by creators everywhere.",
-}
-
-export const SEARCH_PLACEHOLDER = 'Search photos and illustrations'
-
 export type MenuSection = {
   title: string
   links: string[]

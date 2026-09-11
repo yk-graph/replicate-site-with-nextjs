@@ -1,5 +1,9 @@
-import { HERO_CONTENT } from '@/data/site'
 import { SearchForm } from '@/components/layout/search-form'
+
+const HERO_CONTENT = {
+  title: 'Unsplash',
+  subtitle: "The internet's source for visuals. Powered by creators everywhere.",
+}
 
 export function Hero({
   title = HERO_CONTENT.title,

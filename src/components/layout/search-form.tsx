@@ -1,7 +1,8 @@
 import { Search } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
-import { SEARCH_PLACEHOLDER } from '@/data/site'
+
+const SEARCH_PLACEHOLDER = 'Search photos and illustrations'
 
 export function SearchForm({
   placeholder = SEARCH_PLACEHOLDER,
