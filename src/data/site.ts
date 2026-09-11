@@ -17,20 +17,21 @@ export const MENU_SECTIONS: MenuSection[] = [
   },
   {
     title: 'Product',
-    links: ['Developers/API', 'Unsplash Dataset', 'License'],
+    links: [
+      'Developers/API',
+      'Unsplash Dataset',
+      'Unsplash for iOS',
+      'Apps & Plugins',
+      'Unsplash Studio',
+      'Product Placement Ads',
+    ],
   },
   {
     title: 'Community',
-    links: ['Become a Contributor', 'Topics', 'Collections', 'Trends'],
-  },
-  {
-    title: 'Explore',
-    links: ['Wallpapers', 'Backgrounds', 'Images', 'Photos'],
-  },
-  {
-    title: 'Legal',
-    links: ['Privacy Policy', 'Terms', 'Cookie Policy'],
+    links: ['Become a Contributor', 'Collections', 'Trends', 'Unsplash Awards', 'Stats'],
   },
 ]
 
-export const FOOTER_SECTIONS: MenuSection[] = MENU_SECTIONS
+export const LEGAL_LINKS = ['License', 'Privacy Policy', 'Terms', 'Security']
+
+export const FOOTER_SECTIONS: MenuSection[] = [...MENU_SECTIONS, { title: 'Legal', links: LEGAL_LINKS }]
