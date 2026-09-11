@@ -1,0 +1,12 @@
+schema: "classroom50/repo-config/v1"
+classroom: "m1-0126-wd301"
+assignment: "replicate-site-with-nextjs"
+owner:
+  username: "yk-graph"
+  id: 20410513
+  accepted_at: "2026-09-11T01:07:19Z"
+source:
+  owner: "Cornerstone-CICCC"
+  owner_id: 113148113
+  repo: "wd301-replicate-site-with-nextjs"
+  branch: "main"
