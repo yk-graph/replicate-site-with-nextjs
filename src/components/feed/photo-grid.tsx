@@ -88,8 +88,8 @@ export function PhotoGrid() {
   return (
     <section id="photos" className="laptop:px-6 px-4 py-6">
       <div className="grid2:columns-2 grid3:columns-3 columns-1 gap-4">
-        {photos.map((photo) => (
-          <ImageCard key={photo.id} photo={photo} />
+        {photos.map((photo, i) => (
+          <ImageCard key={`${photo.id}-${i}`} photo={photo} />
         ))}
       </div>
 
