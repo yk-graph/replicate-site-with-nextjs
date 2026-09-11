@@ -43,7 +43,7 @@ export function SidebarMenu() {
         <TooltipContent side="right">Menu</TooltipContent>
       </Tooltip>
 
-      <PopoverContent side="right" align="end" sideOffset={12} className="w-[760px] max-w-[calc(100vw-88px)] gap-0 p-0">
+      <PopoverContent side="right" align="end" sideOffset={12} className="w-190 max-w-[calc(100vw-88px)] gap-0 p-0">
         <div className="grid grid-cols-3 gap-8 p-8">
           {MENU_SECTIONS.map((section) => (
             <div key={section.title}>
