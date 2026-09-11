@@ -1,19 +1,40 @@
 'use client'
 
-import { useState } from 'react'
-import { ChevronDown, Languages, Menu, User, X } from 'lucide-react'
+import { useState, type ReactNode } from 'react'
+import { Bell, Bookmark, ChevronDown, Menu, User, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import type { MenuSection } from '@/data/site'
 import { Logo } from './logo'
 import { SearchForm } from './search-form'
+
+function HeaderIconButton({ label, onClick, children }: { label: string; onClick?: () => void; children: ReactNode }) {
+  return (
+    <Tooltip>
+      <TooltipTrigger
+        render={
+          <button
+            type="button"
+            aria-label={label}
+            onClick={onClick}
+            className="text-foreground/70 hover:bg-muted hover:text-foreground flex size-9 items-center justify-center rounded-full transition-colors"
+          />
+        }
+      >
+        {children}
+      </TooltipTrigger>
+      <TooltipContent side="bottom">{label}</TooltipContent>
+    </Tooltip>
+  )
+}
 
 export function Header({ menuSections }: { menuSections: MenuSection[] }) {
   const [categoryOpen, setCategoryOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header className="bg-background sticky top-0 z-30 border-b">
+    <header className="bg-background sticky top-0 z-30">
       <div className="laptop:flex hidden items-center gap-4 px-6 py-3">
         <SearchForm className="max-w-3xl" />
         <div className="ml-auto flex items-center gap-4 whitespace-nowrap">
@@ -52,15 +73,20 @@ export function Header({ menuSections }: { menuSections: MenuSection[] }) {
           </div>
 
           <div className="ml-auto flex items-center gap-1">
-            <Button variant="ghost" size="icon" aria-label="Account">
-              <User className="size-5" />
-            </Button>
-            <Button variant="ghost" size="icon" aria-label="Language">
-              <Languages className="size-5" />
-            </Button>
-            <Button variant="ghost" size="icon" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+            <HeaderIconButton label="Bookmarks">
+              <Bookmark className="size-5" />
+            </HeaderIconButton>
+            <HeaderIconButton label="Notifications">
+              <Bell className="size-5" />
+            </HeaderIconButton>
+            <HeaderIconButton label="Profile">
+              <span className="bg-muted text-muted-foreground flex size-7 items-center justify-center rounded-full">
+                <User className="size-4" />
+              </span>
+            </HeaderIconButton>
+            <HeaderIconButton label="Menu" onClick={() => setMenuOpen(true)}>
               <Menu className="size-5" />
-            </Button>
+            </HeaderIconButton>
           </div>
         </div>
 
