@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import Link from 'next/link'
 import { Bell, Bookmark, Download, Folders, Image as ImageIcon, PenTool, User, type LucideIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -49,14 +50,14 @@ function SidebarLink({ label, Icon, active }: NavItem) {
 export function SideBar() {
   return (
     <aside className="bg-background laptop:flex fixed inset-y-0 left-0 z-40 hidden w-16 flex-col items-center border-r py-3">
-      <a
-        href="#"
+      <Link
+        href="/"
         aria-label="Unsplash Home"
         title="Home — Unsplash"
         className="hover:bg-muted mb-1 flex size-10 items-center justify-center rounded-lg"
       >
         <Logo className="size-7" />
-      </a>
+      </Link>
 
       {NAV_GROUPS.map((group, index) => (
         <Fragment key={index}>
