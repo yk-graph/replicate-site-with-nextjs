@@ -2,6 +2,7 @@
 
 import { useState, type SubmitEvent } from 'react'
 
+import { saveSubscriber } from '@/actions/subscribe'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
 
@@ -35,6 +36,12 @@ export function Subscribe() {
     const data = await res.json()
 
     if (data.success) {
+      try {
+        await saveSubscriber(email)
+      } catch (error) {
+        console.error('Failed to save subscriber:', error)
+      }
+
       setIsLoading(false)
 
       toast.add({
