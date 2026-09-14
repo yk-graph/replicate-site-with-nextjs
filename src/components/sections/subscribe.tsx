@@ -76,7 +76,7 @@ export function Subscribe() {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="Enter your email"
-          className="bg-muted focus-visible:ring-ring h-11 flex-1 rounded-full px-4 text-sm outline-none focus-visible:ring-2"
+          className="bg-muted focus-visible:ring-ring h-9 flex-1 rounded-full px-4 text-sm outline-none focus-visible:ring-2"
         />
         <Button type="submit" size="lg" disabled={isLoading}>
           {isLoading ? 'Sending…' : 'Subscribe'}
