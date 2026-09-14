@@ -9,19 +9,20 @@ export function Nav() {
 
   return (
     <nav className="bg-background sticky top-0 z-20 border-b">
-      <ul className="laptop:px-6 flex [scrollbar-width:none] items-center gap-6 overflow-x-auto px-4 py-3">
+      <ul className="laptop:px-6 flex scrollbar-none items-center gap-6 overflow-x-auto px-4">
         {PHOTO_TABS.map((tab) => (
           <li key={tab}>
             <button
               type="button"
               onClick={() => setActiveTab(tab)}
               className={cn(
-                'relative pb-2 text-sm whitespace-nowrap transition-colors',
-                activeTab === tab ? 'text-foreground font-medium' : 'text-muted-foreground hover:text-foreground',
+                '-mb-px border-b-2 py-3 text-sm whitespace-nowrap transition-colors',
+                activeTab === tab
+                  ? 'border-foreground text-foreground font-medium'
+                  : 'text-muted-foreground hover:text-foreground border-transparent',
               )}
             >
               {tab}
-              {activeTab === tab && <span className="bg-foreground absolute inset-x-0 bottom-0 h-0.5" />}
             </button>
           </li>
         ))}

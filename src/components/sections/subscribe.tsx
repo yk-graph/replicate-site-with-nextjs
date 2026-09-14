@@ -1,25 +1,64 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useState, type SubmitEvent } from 'react'
 
+import { saveSubscriber } from '@/actions/subscribe'
 import { Button } from '@/components/ui/button'
-
-type Status = 'idle' | 'loading' | 'success' | 'error'
+import { toast } from '@/components/ui/toast'
 
 export function Subscribe() {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<Status>('idle')
+  const [isLoading, setIsLoading] = useState(false)
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
-    setStatus('loading')
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 600))
-      setStatus('success')
+    if (!accessKey) {
+      toast.add({
+        type: 'error',
+        title: 'Subscription failed!',
+        description: 'Access key is missing. Please contact the site administrator.',
+      })
+      return
+    }
+
+    setIsLoading(true)
+
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: accessKey,
+        email,
+      }),
+    })
+    const data = await res.json()
+
+    if (data.success) {
+      try {
+        await saveSubscriber(email)
+      } catch (error) {
+        console.error('Failed to save subscriber:', error)
+      }
+
+      setIsLoading(false)
+
+      toast.add({
+        type: 'success',
+        title: 'Subscription successful!',
+        description: 'You have successfully subscribed to our newsletter.',
+      })
+
       setEmail('')
-    } catch {
-      setStatus('error')
+    } else {
+      setIsLoading(false)
+
+      toast.add({
+        type: 'error',
+        title: 'Subscription failed!',
+        description: 'There was an error subscribing to our newsletter. Please try again later.',
+      })
     }
   }
 
@@ -39,15 +78,10 @@ export function Subscribe() {
           placeholder="Enter your email"
           className="bg-muted focus-visible:ring-ring h-11 flex-1 rounded-full px-4 text-sm outline-none focus-visible:ring-2"
         />
-        <Button type="submit" size="lg" disabled={status === 'loading'}>
-          {status === 'loading' ? 'Sending…' : 'Subscribe'}
+        <Button type="submit" size="lg" disabled={isLoading}>
+          {isLoading ? 'Sending…' : 'Subscribe'}
         </Button>
       </form>
-
-      {status === 'success' && <p className="mt-3 text-sm text-green-600">登録ありがとうございます！</p>}
-      {status === 'error' && (
-        <p className="text-destructive mt-3 text-sm">送信に失敗しました。時間をおいてお試しください。</p>
-      )}
     </section>
   )
 }

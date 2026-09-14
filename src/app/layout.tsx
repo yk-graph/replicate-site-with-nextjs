@@ -2,11 +2,13 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
-import { cn } from '@/lib/utils'
+import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { SideBar } from '@/components/layout/side-bar'
-import { Footer } from '@/components/layout/footer'
+import { Toaster } from '@/components/ui/toast'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import { FOOTER_SECTIONS, MENU_SECTIONS } from '@/data/site'
+import { cn } from '@/lib/utils'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -19,12 +21,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={cn('h-full', 'antialiased', 'font-sans', inter.variable)}>
       <body className="flex min-h-full flex-col">
-        <SideBar />
-        <div className="laptop:pl-16 flex min-h-full flex-1 flex-col">
-          <Header menuSections={MENU_SECTIONS} />
-          <main className="flex-1">{children}</main>
-          <Footer sections={FOOTER_SECTIONS} />
-        </div>
+        <TooltipProvider>
+          <SideBar />
+          <div className="laptop:pl-16 flex min-h-full flex-1 flex-col">
+            <Header menuSections={MENU_SECTIONS} />
+            <main className="flex-1">{children}</main>
+            <Footer sections={FOOTER_SECTIONS} />
+          </div>
+          <Toaster />
+        </TooltipProvider>
       </body>
     </html>
   )

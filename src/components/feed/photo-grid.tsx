@@ -41,7 +41,7 @@ export function PhotoGrid() {
       setHasMore(data.length >= PER_PAGE)
     } catch {
       if (requestId === requestIdRef.current) {
-        setError('画像の取得に失敗しました。時間をおいて再度お試しください。')
+        setError('Failed to load photos. Please try again later.')
       }
     } finally {
       if (requestId === requestIdRef.current) {
@@ -88,8 +88,8 @@ export function PhotoGrid() {
   return (
     <section id="photos" className="laptop:px-6 px-4 py-6">
       <div className="grid2:columns-2 grid3:columns-3 columns-1 gap-4">
-        {photos.map((photo) => (
-          <ImageCard key={photo.id} photo={photo} />
+        {photos.map((photo, i) => (
+          <ImageCard key={`${photo.id}-${i}`} photo={photo} />
         ))}
       </div>
 
