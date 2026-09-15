@@ -4,6 +4,7 @@ import './globals.css'
 
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
+import { ScrollToTop } from '@/components/layout/scroll-to-top'
 import { SideBar } from '@/components/layout/side-bar'
 import { Toaster } from '@/components/ui/toast'
 import { TooltipProvider } from '@/components/ui/tooltip'
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main className="flex-1">{children}</main>
             <Footer sections={FOOTER_SECTIONS} />
           </div>
+          <ScrollToTop />
           <Toaster />
         </TooltipProvider>
       </body>
