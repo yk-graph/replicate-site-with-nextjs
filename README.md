@@ -1,84 +1,36 @@
-# WD-301: Replicate a Website (Next.js)
+# Unsplash Landing Page Clone
 
-## Assignment Overview
+A responsive Unsplash landing page built with Next.js (App Router).
 
-The goal of this assignment is to **replicate the website linked below** as a **responsive landing page** using **Next.js (App Router)** while following best practices.
+## Live Demo
 
-> ## Website to Replicate
->
-> **[https://unsplash.com/](https://unsplash.com/)**
->
-> Study this website carefully and recreate its layout, sections, and overall design as closely as possible.
->
-> Need extra design inspiration? Browse **[Dribbble Landing Pages](https://dribbble.com/search/landing%20page)**.
+https://replicate-site-with-nextjs.vercel.app/
 
----
+## Highlights
 
-## Features & Requirements
+- **Close-to-real UI with shadcn/ui.** Used shadcn/ui components to recreate the Unsplash interface as closely as possible.
+- **Real Unsplash API.** Photos and search results come from the actual Unsplash API, not mock data.
+- **Infinite scroll with IntersectionObserver.** More photos load automatically as you scroll, using `IntersectionObserver` instead of scroll events.
 
-▷ **Single Page Application (SPA)**
+## Tech Stack
 
-- The landing page should be a single route (e.g., `/`).
+- Next.js 16 (App Router) / React 19 / TypeScript
+- Tailwind CSS v4, shadcn/ui
+- MongoDB Atlas, Web3Forms, Unsplash API
 
-▷ **Component-Based Structure**
+## Getting Started
 
-- Each section must be its **own component**.
-- Components **should receive content as props** from `page.tsx`.
-- You can **reuse components** where applicable.
-- **TypeScript is required**: type your props properly (interfaces/types).
+```bash
+npm install
+npm run dev
+```
 
-▷ **Responsive Design**
+Create a `.env.local` file:
 
-- The layout must be **mobile-friendly** and **adaptive**.
-- Test on common breakpoints (mobile, tablet, desktop).
-- **Tailwind CSS is recommended**, but any modern styling approach is acceptable.
+```
+UNSPLASH_ACCESS_KEY=...
+MONGODB_URI=...
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=...
+```
 
-▷ **Faithful Replication**
-
-- The **layout and structure must match the reference website**.
-- You may adjust the **color scheme** slightly, but the design should remain clearly recognizable.
-
-▷ **Email Subscription**
-
-- The last section should include an **email input field**.
-- Build the form using **[Web3Forms](https://web3forms.com/)**.
-- Store the submitted email in a **free online database**, e.g., **[Firebase](https://firebase.google.com/)** or **[MongoDB Atlas](https://www.mongodb.com/atlas)** (free Postgres options like [Supabase](https://supabase.com/) or [Neon](https://neon.tech/) are also fine).
-
-▷ **Smooth Scroll Navigation**
-
-- Navbar buttons should be **clickable** and should scroll smoothly to the corresponding section.
-
-▷ **Clickable Elements**
-
-- Buttons and links should have **clear styling** to indicate interactivity (hover/focus states).
-- Non-functional buttons should still appear as clickable UI elements.
-
----
-
-## Icons & Resources
-
-- Use icons from:
-  - [Lucide](https://lucide.dev/icons/)
-  - [Radix UI](https://www.radix-ui.com/)
-  - Any other trusted source.
-- Free stock images: [Unsplash](https://unsplash.com/)
-- Use [next/image](https://nextjs.org/docs/app/api-reference/components/image) for optimized images where applicable.
-
----
-
-## Marking Criteria
-
-Your submission will be marked on:
-
-- How closely it follows **good industry-standard practices**
-- **Good typography** (font choices, sizes, and spacing)
-- How **fast and responsive** the page is
-
----
-
-## Submission
-
-- Push your code to **GitHub** with a clean commit history.
-- Include clear **setup instructions** (install & run) in your repository.
-
-> **IMPORTANT: Include a link to your DEPLOYED site** (e.g., [Vercel](https://vercel.com/)) **in your submission.**
+The full assignment brief is in [ASSIGNMENT.md](./ASSIGNMENT.md).
